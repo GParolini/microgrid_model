@@ -60,7 +60,7 @@ Variables
 ;
 
 
-Binary Variable v(k);
+Binary Variable v(k)    ;
 
 
 Positive variables
@@ -99,15 +99,15 @@ pv_capacity2(t) ..         y(t) =l= w*P(t)*TT  ;
 bess_balance(t) ..         e(t) =e= (1-D)*e(t-1)$(ord(t)>1) + h(t)*F - b(t) ;        
 bess_limits(t) ..          e(t) =l= z  ;        
 bess_ramping_up(t) ..      h(t)*F =l= Gmax*z   ;     
-bess_ramping_down(t) ..    b(t) =l= Gmin*z      ;
+bess_ramping_down(t) ..    b(t) =l= Gmin*z  ;
 space_restr_pv ..          w =l= A ;
 space_restr_bess ..        z =l= Bb ;
 eff_measures ..            sum(k, v(k)) =e= 1 ;
 
-option optcr=0;
-option reslim = 3000000;
-Option Iterlim=100000;
-Option MIP = CPLEX;
+option optcr=0  ;
+option reslim = 3000000 ;
+Option Iterlim=100000   ;
+Option MIP = CPLEX  ;
 
 Model microgrid /all/ ;
 Solve microgrid using MIP minimizing o ;
