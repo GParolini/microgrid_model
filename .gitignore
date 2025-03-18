@@ -169,3 +169,8 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+# GAMS specific
+.lst 
+.lxi
+LICENSE
