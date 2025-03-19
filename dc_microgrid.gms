@@ -34,7 +34,7 @@ Scalars
     Em      Grid emissions                                                              /0.6038/
     Epv     Photovoltaic system lifecycle emissions (per year)                          /25.86/
     Ebess   Battery lifecycle emissions (per year)                                      /12.06/
-    Cm      Price for one kWh purchased from the grid                                   /11.76/
+    Cm      Price for one kWh purchased from the grid                                   /0.1176/
     Cpv     Amortised cost of one kW of installed photovoltaic capacity (per year)      /650/
     A       Maximum PV capacity                                                         /1000/
     Cbess   Amortised cost of one kWh of installed battery capacity (per year)          /240/
