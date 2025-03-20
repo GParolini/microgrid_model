@@ -18,6 +18,18 @@ $GDXIN P.gdx
 $LOAD P
 $GDXIN
 
+Parameter Em(t) Grid carbon emissions at time t ;
+$CALLTOOL csvread Em.csv id=Em dimids=Index index=1 values=lastCol useHeader="Y" gdXout=Em.gdx
+$GDXIN Em.gdx
+$LOAD Em
+$GDXIN
+
+Parameter Cm(t) Price for one kWh purchased from the grid at time t ;
+$CALLTOOL csvread Cm.csv id=Cm dimids=Index index=1 values=lastCol useHeader="Y" gdXout=Cm.gdx
+$GDXIN Cm.gdx
+$LOAD Cm
+$GDXIN
+
 Parameter Vv(k) Energy reduction for efficiency measure k
                 /0   0.0
                  1   0.1
@@ -31,16 +43,16 @@ Parameter Cc(k) Cost of adopting efficiency measure k
 
 Scalars
     TT      Length of time period in hours                                              /1/
-    Em      Grid emissions                                                              /0.6038/
     Epv     Photovoltaic system lifecycle emissions (per year)                          /25.86/
     Ebess   Battery lifecycle emissions (per year)                                      /12.06/
-    Cm      Price for one kWh purchased from the grid                                   /0.1176/
     Cpv     Amortised cost of one kW of installed photovoltaic capacity (per year)      /650/
-    A       Maximum PV capacity                                                         /1000/
+    A       Maximum PV capacity                                                         /1500/
     Cbess   Amortised cost of one kWh of installed battery capacity (per year)          /240/
-    Bb      Maximum BESS capacity                                                       /500/
+    Bb      Maximum BESS capacity                                                       /1500/
     F       Battery charging efficiency factor                                          /0.9/
     D       Battery self-discharge                                                      /0.003/
+    Sma     Battery max state-of-charge                                                 /0.8/
+    Smi     Battery min state-of-charge                                                 /0.00000000001/ 
     Gmax    Battery max rate of charging                                                /0.3/
     Gmin    Battery max rate of discharging                                             /0.3/                   
 ;
@@ -83,23 +95,25 @@ Equations
         pv_capacity1        limits on energy sent by pv to dc-bess-grid by the photovoltaic system
         pv_capacity2        limits on the electricity produced by the photovoltaic system
         bess_balance        energy stored in the battery
-        bess_limits         limits to the energy that can be stored in the battery
-        bess_ramping_up     max SOC
-        bess_ramping_down   min SOC
+        bess_max_soc        battery max SOC
+        bess_min_soc        battery min SOC
+        bess_charge         battery charging
+        bess_discharge      battery discharging
         space_restr_pv      area restrictions for PV installation
         space_restr_bess    volume restrictions for BESS installation
         eff_measures        exactly one efficiency measure may be adopted in the microgrid
 ;
 
-emissions ..               o =e= sum(t, Em*x(t)) + Epv*w + Ebess*z ;
-costs ..                   c =e= sum(t, Cm*x(t)) + Cpv*w + Cbess*z + sum(k, Cc(k)*v(k)) ;
+emissions ..               o =e= sum(t, Em(t)*x(t)) + Epv*w + Ebess*z ;
+costs ..                   c =e= sum(t, Cm(t)*x(t)) + Cpv*w + Cbess*z + sum(k, Cc(k)*v(k)) ;
 dc_balance(t) ..           x(t) + r(t) + b(t) =e= DC(t)*(sum(k,(1-Vv(k))*v(k)))  ;         
 pv_capacity1(t) ..         r(t) + h(t) =l= y(t) ;
 pv_capacity2(t) ..         y(t) =l= w*P(t)*TT  ;   
 bess_balance(t) ..         e(t) =e= (1-D)*e(t-1)$(ord(t)>1) + h(t)*F - b(t) ;        
-bess_limits(t) ..          e(t) =l= z  ;        
-bess_ramping_up(t) ..      h(t)*F =l= Gmax*z   ;     
-bess_ramping_down(t) ..    b(t) =l= Gmin*z  ;
+bess_max_soc(t) ..         e(t) =l= Sma*z ;
+bess_min_soc(t) ..         Smi*z  =l= e(t) ;      
+bess_charge(t) ..          h(t)*F =l= Gmax*z   ;     
+bess_discharge(t) ..       b(t) =l= Gmin*z  ;
 space_restr_pv ..          w =l= A ;
 space_restr_bess ..        z =l= Bb ;
 eff_measures ..            sum(k, v(k)) =e= 1 ;
