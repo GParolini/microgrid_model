@@ -177,4 +177,9 @@ cython_debug/
 **.gdx
 **.xlsx
 **/savepoints
+**.opt
+**.yaml
 LICENSE
+
+# Images
+**.png
