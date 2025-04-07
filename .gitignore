@@ -171,6 +171,10 @@ cython_debug/
 .pypirc
 
 # GAMS specific
-dc_microgrid.lst 
-dc_microgrid.lxi
+**.lst 
+**.lxi
+**.log
+**.gdx
+**.xlsx
+**/savepoints
 LICENSE
