@@ -183,3 +183,7 @@ LICENSE
 
 # Images
 **.png
+**.pdf
+
+# OS Specific
+**.DS_Store
