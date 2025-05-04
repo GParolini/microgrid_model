@@ -45,9 +45,9 @@ Scalars
     TT      Length of time period in hours                                              /1/
     Epv     Photovoltaic system lifecycle emissions (per year)                          /25.86/
     Ebess   Battery lifecycle emissions (per year)                                      /12.06/
-    Cpv     Amortised cost of one kW of installed photovoltaic capacity (per year)      /141/
+    Cpv     Amortised cost of one kW of installed photovoltaic capacity (per year)      /145/
     A       Maximum PV capacity                                                         /1500/
-    Cbess   Amortised cost of one kWh of installed battery capacity (per year)          /57/
+    Cbess   Amortised cost of one kWh of installed battery capacity (per year)          /58/
     Bb      Maximum BESS capacity                                                       /1500/
     F       Battery charging efficiency factor                                          /0.9/
     D       Battery self-discharge                                                      /0.003/
@@ -69,6 +69,12 @@ Variables
     w       PV installed capacity
     o       total emissions
     c       total costs
+    tr      total PV electricity used by DC
+    tb      total BESS electricity used by DC
+    tx      total grid electricity used by DC
+    tepv    total pv emissions
+    teb     total battery emissions
+    teg     total grid emissions
 ;
 
 
@@ -102,6 +108,12 @@ Equations
         space_restr_pv      area restrictions for PV installation
         space_restr_bess    volume restrictions for BESS installation
         eff_measures        exactly one efficiency measure may be adopted in the microgrid
+        tot_r               total PV electricity used by DC
+        tot_b               total BESS electricity used by DC
+        tot_x               total grid electricity used by DC
+        tot_e_pv            total pv emissions
+        tot_e_b             total battery emissions
+        tot_e_g             total grid emissions
 ;
 
 emissions ..               o =e= sum(t, Em(t)*x(t)) + Epv*w + Ebess*z ;
@@ -117,6 +129,12 @@ bess_discharge(t) ..       b(t) =l= Gmin*z  ;
 space_restr_pv ..          w =l= A ;
 space_restr_bess ..        z =l= Bb ;
 eff_measures ..            sum(k, v(k)) =e= 1 ;
+tot_r ..                   tr =e= sum(t, r(t)) ;
+tot_b ..                   tb =e= sum(t, b(t)) ;
+tot_x ..                   tx =e= sum(t, x(t)) ;
+tot_e_pv ..                tepv =e= Epv*w ;
+tot_e_b ..                 teb =e= Ebess*z ;
+tot_e_g ..                 teg =e= sum(t, Em(t)*x(t)) ;
 
 option optcr=0  ;
 option reslim = 3000000 ;

@@ -39,12 +39,14 @@ $LOAD Cm
 $GDXIN
 
 Parameter Vv(k) Energy reduction for efficiency measure k
-                /k0   0.0/;
+                /k0   0.0
+                 k1   0.15
+                 k2   0.25/;
 
 Parameter Cc(k) Amortised yearly cost of adopting efficiency measure k
-                /k0       0
-                 k1    5000
-                 k2   10000/;
+                /k0        0
+                 k1     5000
+                 k2    10000/;
 
 
 Scalars
@@ -52,9 +54,9 @@ Scalars
     Epv     Photovoltaic system lifecycle emissions (per year)                          /25.86/
     Ebess   Battery lifecycle emissions (per year)                                      /12.06/
     Cpv     Amortised cost of one kW of installed photovoltaic capacity (per year)      /145/
-    A       Maximum PV capacity                                                         /449/
+    A       Maximum PV capacity                                                         /0/
     Cbess   Amortised cost of one kWh of installed battery capacity (per year)          /58/
-    Bb      Maximum BESS capacity                                                       /205/
+    Bb      Maximum BESS capacity                                                       /0/
     F       Battery charging efficiency factor                                          /0.9/
     D       Battery self-discharge                                                      /0.003/
     Sma     Battery max state-of-charge                                                 /0.8/
@@ -122,6 +124,7 @@ bess_discharge(t) ..       b(t) =l= Gmin*z  ;
 space_restr_pv ..          w =l= A ;
 space_restr_bess ..        z =l= Bb ;
 eff_measures ..            sum(k, v(k)) =e= 1 ;
+
 
 Model microgrid /all/ ;
 

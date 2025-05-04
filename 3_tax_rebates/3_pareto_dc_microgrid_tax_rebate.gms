@@ -53,10 +53,10 @@ Scalars
     TT      Length of time period in hours                                              /1/
     Epv     Photovoltaic system lifecycle emissions (per year)                          /25.86/
     Ebess   Battery lifecycle emissions (per year)                                      /12.06/
-    Cpv     Amortised cost of one kW of installed photovoltaic capacity (per year)      /99/
-    A       Maximum PV capacity                                                         /606/
-    Cbess   Amortised cost of one kWh of installed battery capacity (per year)          /40/
-    Bb      Maximum BESS capacity                                                       /375/
+    Cpv     Amortised cost of one kW of installed photovoltaic capacity (per year)      /101/
+    A       Maximum PV capacity                                                         /608/
+    Cbess   Amortised cost of one kWh of installed battery capacity (per year)          /41/
+    Bb      Maximum BESS capacity                                                       /376/
     F       Battery charging efficiency factor                                          /0.9/
     D       Battery self-discharge                                                      /0.003/
     Sma     Battery max state-of-charge                                                 /0.8/

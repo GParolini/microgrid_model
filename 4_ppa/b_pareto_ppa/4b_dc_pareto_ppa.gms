@@ -55,7 +55,7 @@ Scalars
     Ebess   Battery lifecycle emissions (per year)                                      /12.06/
     Cppa    Cost of one kW of electricity produced by the photovoltaic                  /0.18/
     A       Maximum PV capacity                                                         /449/
-    Cbess   Amortised cost of one kWh of installed battery capacity (per year)          /40/
+    Cbess   Amortised cost of one kWh of installed battery capacity (per year)          /58/
     Bb      Maximum BESS capacity                                                       /205/
     F       Battery charging efficiency factor                                          /0.9/
     D       Battery self-discharge                                                      /0.003/

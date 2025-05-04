@@ -1,0 +1,10 @@
+Input=/Users/giudittaparolini/Documents/microgrid_model/4_ppa/b_pareto_ppa/4b_dc_pareto_ppa.gms
+PageSize=0
+ScrDir=225b
+SysDir=/Library/Frameworks/GAMS.framework/Versions/48/Resources
+ScriptNext=225b/gamsnext.sh
+LogOption=3
+ErrMsg=1
+ErrorLog=99
+IDE=1
+LstTitleLeftAligned=1

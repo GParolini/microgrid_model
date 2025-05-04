@@ -1,0 +1,6 @@
+     gams.db['MOO_1_rhs'].copy_symbol(mi_epsc.sync_db['MOO_1_rhs'])
+     mi_epsc.solve(output=LogWriter(gams), mi_opt=GamsModelInstanceOpt(solver="cplex", opt_file=1, debug=0))
+     modelstat = [mi_epsc.model_status]
+     gams.set('MOO_1_modelstat', modelstat)
+     gams.db['MOO_1_sl'].clear()
+     mi_epsc.sync_db['MOO_1_sl'].copy_symbol(gams.db['MOO_1_sl'])
